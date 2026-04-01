@@ -1,0 +1,49 @@
+# Project: Dynamic Vertical Wind Profile Visualizer
+# Version: 2.4.0
+# Description: A professional meteorological data visualization system for SODAR/Lidar HPL files.
+# Created: 2026-04-01
+
+name: wind_visualizer_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - streamlit>=1.30.0    # Web UI Framework
+      - pandas>=2.1.0       # Data Manipulation
+      - numpy>=1.26.0       # Vectorized Calculations
+      - plotly>=5.18.0      # Professional Engineering Graphics
+      - pyarrow>=14.0.0     # High-performance Parquet Support
+      - fastparquet>=2023.10.1
+      - tkinter             # For Folder Selection in processor.py
+
+project_metadata:
+  owner: "Retired Mechanical Engineer / Rutgers Alumnus"
+  location: "Kansai Town, Taiwan"
+  core_modules:
+    processor:
+      file: "src/processor.py"
+      function: "ETL: Convert Processed_Wind_Profile_*.hpl to Parquet"
+      features: ["Vector calculation (u, v)", "Multi-date grouping"]
+    visualizer:
+      file: "src/app.py"
+      function: "Dynamic Animation & Vector Analysis"
+      features: ["Constant Tail Length", "Synchro-Rotating Arrows", "Smooth Spline Interpolation"]
+
+deployment_guide:
+  step_1: "Run 'python src/processor.py' to generate binary data files."
+  step_2: "Run 'streamlit run src/app.py' to launch the analytical dashboard."
+
+visualization_standards:
+  coordinate_system: "Meteorological (0 deg = North/Up)"
+  default_playback: "200ms per frame"
+  color_scheme:
+    primary: "#00d1ff"  # Speed Curve
+    secondary: "#ff4b4b" # Wind Vectors (Red)
+    background: "#000000" # High-contrast Dashboard Mode
+
+paths:
+  raw_data_pattern: "**/Processed_Wind_Profile_*.hpl"
+  output_data: "data/processed/*.parquet"
